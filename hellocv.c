@@ -31,7 +31,7 @@ main (int argc, char **argv)
     frame = cvQueryFrame (capture);
     cvShowImage ("Capture", frame);
     c = cvWaitKey (2);
-    if (c == '\x1b')
+    if (c != -1)	//何らかのキーが押された場合に終了(元ソースではESCのみ)
       break;
   }
 

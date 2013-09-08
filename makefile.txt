@@ -19,7 +19,7 @@ ifeq ($(OS),Windows_NT)
 else
 	#Linux環境向け自動設定(下のwindows版設定をコメントアウトすると有効化)
 	#なお、pkg-configを使うと、OpenCVのバージョンは自動設定されるので、制限されない。
-	CV_ARGS =$(pkg-config --cflags --libs opencv)
+	CV_ARGS =$(shell pkg-config --cflags --libs opencv)
 endif
 
 
@@ -28,7 +28,7 @@ $(prj).exe: makefile makefile.txt $(MAIN) $(CONS_BAT)
 	gcc $(MAIN) -o $(prj).exe $(CV_ARGS)
 
 run: $(prj).exe
-	$(prj).exe
+	./$(prj).exe
 
 clean:
 	rm $(prj).exe
