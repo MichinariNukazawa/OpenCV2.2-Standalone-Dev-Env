@@ -1,18 +1,30 @@
 
+#ソースファイル名
 MAIN =hellocv.c
+#実行ファイル名
 prj  =cv
 
-#バージョン2.2決め打ち
-VER=240
 
-#Linux環境向け自動設定(下のwindows版設定をコメントアウトすると有効化)
-CV_ARGS =$(pkg-config --cflags --libs opencv)
+#OpenCVライブラリオプション
+ifeq ($(OS),Windows_NT)
+	# Windows 上で実行された
+	#バージョン2.4決め打ち
+	VER=240
+	#windows環境にpkg-configは標準で存在しないので、リンク指定を決め打ちする
+	CV_ARGS = -lopencv_core$(VER) -lopencv_imgproc$(VER) -lopencv_highgui$(VER) \
+	 -lopencv_ml$(VER) -lopencv_video$(VER) -lopencv_features2d$(VER) \
+	 -lopencv_calib3d$(VER) -lopencv_objdetect$(VER) -lopencv_contrib$(VER) \
+	 -lopencv_legacy$(VER) -lopencv_flann$(VER)
+	CONS_BAT=!cons.bat
+else
+	#Linux環境向け自動設定(下のwindows版設定をコメントアウトすると有効化)
+	#なお、pkg-configを使うと、OpenCVのバージョンは自動設定されるので、制限されない。
+	CV_ARGS =$(pkg-config --cflags --libs opencv)
+endif
 
-#windows環境にpkg-configは標準で存在しないので、リンク指定を決め打ちする
-CV_ARGS = -lopencv_core$(VER) -lopencv_imgproc$(VER) -lopencv_highgui$(VER) -lopencv_ml$(VER) -lopencv_video$(VER) -lopencv_features2d$(VER) -lopencv_calib3d$(VER) -lopencv_objdetect$(VER) -lopencv_contrib$(VER) -lopencv_legacy$(VER) -lopencv_flann$(VER)
 
 
-$(prj).exe: makefile $(MAIN)
+$(prj).exe: makefile makefile.txt $(MAIN) $(CONS_BAT)
 	gcc $(MAIN) -o $(prj).exe $(CV_ARGS)
 
 run: $(prj).exe
@@ -20,8 +32,4 @@ run: $(prj).exe
 
 clean:
 	rm $(prj).exe
-
-
-
-
 
