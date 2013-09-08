@@ -1,3 +1,7 @@
+/*
+下記ソースは以下のURLより引用。
+http://opencv.jp/sample/video_io.html#capture
+*/
 
 #include <cv.h>
 #include <highgui.h>
