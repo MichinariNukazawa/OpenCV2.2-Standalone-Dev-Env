@@ -8,8 +8,8 @@ prj  =cv
 #OpenCVライブラリオプション
 ifeq ($(OS),Windows_NT)
 	# Windows 上で実行された
-	#バージョン2.4決め打ち
-	VER=240
+	#バージョン2.4.6決め打ち(ライブラリのバージョンを変える場合はここを変更)
+	VER=246
 	#windows環境にpkg-configは標準で存在しないので、リンク指定を決め打ちする
 	CV_ARGS = -lopencv_core$(VER) -lopencv_imgproc$(VER) -lopencv_highgui$(VER) \
 	 -lopencv_ml$(VER) -lopencv_video$(VER) -lopencv_features2d$(VER) \
