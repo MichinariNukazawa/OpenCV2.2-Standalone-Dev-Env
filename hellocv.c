@@ -31,7 +31,8 @@ main (int argc, char **argv)
     frame = cvQueryFrame (capture);
     cvShowImage ("Capture", frame);
     c = cvWaitKey (2);
-    if (c != -1)	//何らかのキーが押された場合に終了(元ソースではESCのみ)
+    //何らかのキーが押された場合・ウィンドウが閉じた場合に終了(元ソースではESCのみ)
+    if (c != -1 || NULL == cvGetWindowHandle("Capture"))
       break;
   }
 
